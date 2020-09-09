@@ -1,11 +1,16 @@
 import static org.gradle.api.JavaVersion.VERSION_1_8
 
+
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-jpa'
 apply plugin: 'net.corda.plugins.quasar-utils'
 apply plugin: 'net.corda.plugins.publish-utils'
 apply plugin: 'net.corda.plugins.api-scanner'
 apply plugin: 'com.jfrog.artifactory'
+
+apply plugin: 'biz.aQute.bnd.builder'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'java-library'
 
 description 'Corda core'
 
@@ -78,6 +83,11 @@ dependencies {
     compile "io.netty:netty-common:$netty_version"
 
     compile group: "io.github.classgraph", name: "classgraph", version: class_graph_version
+
+    // Compile corda-core as an OSGi bundle
+    compileOnly "org.osgi:osgi.annotation:$osgi_version"
+    compileOnly "org.osgi:osgi.core:$osgi_version"
+//    compileOnly "org.osgi:org.osgi.service.component.annotations:$osgi_component_annotations_version"
 
     testCompile "org.ow2.asm:asm:$asm_version"
 
